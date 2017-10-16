@@ -1,0 +1,14 @@
+{
+  "name": "nodejs_redis_poc",
+  "version": "1.0.0",
+  "description": "Node.js redis on Docker",
+  "author": "Eguzki Astiz Lezaun <eastizle@redhat.com>",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "redis": "2.8.0",
+    "argparse": "1.0.9"
+  }
+}
