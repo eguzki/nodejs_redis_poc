@@ -15,5 +15,5 @@ COPY server.js .
 
 ENTRYPOINT [ "npm", "start", "--"]
 
-CMD ["-p", "3000", "--redis-port", "6379", "--redis-host", "127.0.0.1"]
+CMD ["-p", "3000"]
 
