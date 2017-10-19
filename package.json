@@ -8,6 +8,7 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "argparse": "1.0.9"
+    "argparse": "1.0.9",
+    "cluster": "0.7.7"
   }
 }

@@ -1,7 +1,9 @@
 'use strict';
 
-var http = require("http");
+const cluster = require('cluster');
 var ArgumentParser = require("argparse").ArgumentParser;
+const DefaultNumCPUs = require('os').cpus().length;
+var listener = require('./listener.js')
 
 var parser = new ArgumentParser({
   version: '0.0.1',
@@ -17,16 +19,35 @@ parser.addArgument(
   }
 );
 
+parser.addArgument(
+  [ '-w', '--workers' ],
+  {
+    defaultValue: DefaultNumCPUs,
+    help: "Http listen port"
+  }
+);
+
 var args = parser.parseArgs();
 
-var server = http.createServer(function(request, response) {
-  response.writeHead(200);
-  response.end();
-});
+function childProcess() {
+	listener.start(parseInt(args.port));
+}
+
+function masterProcess() {
+  console.log(`Master ${process.pid} is running`);
+
+  for (let i = 0; i < args.workers; i++) {
+    cluster.fork();
+  }
+}
 
 function main() {
-  console.log(args);
-  server.listen(parseInt(args.port));
+	if (cluster.isMaster) {
+  	console.log(args);
+		masterProcess();
+	} else {
+		childProcess();
+	}
 }
 
 //

@@ -11,7 +11,7 @@ COPY package.json .
 RUN npm install
 
 # Bundle app source
-COPY server.js .
+COPY server.js listener.js .
 
 ENTRYPOINT [ "npm", "start", "--"]
 
